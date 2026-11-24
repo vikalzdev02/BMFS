@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ff4757">
+<title>BMFS · Brilliant Method For School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#111;--paper:#fffdf2;--yellow:#ffd93d;--red:#ff4757;--blue:#3d8bff;--green:#2ed573;
+  --pink:#ff8fc7;--purple:#a55eea;--orange:#ff9f43;
+  --bd:4px solid var(--ink);--sh:5px 5px 0 var(--ink);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;min-height:100vh;
+  font-family:'Comic Neue','Comic Sans MS','Chalkboard SE','Marker Felt',cursive,sans-serif;
+  font-weight:700;font-size:17px;line-height:1.35;color:var(--ink);
+  background-color:var(--yellow);
+  background-image:radial-gradient(rgba(0,0,0,.16) 1.7px,transparent 2px);
+  background-size:18px 18px;
+}
+h1,h2,h3{font-family:'Bangers','Comic Sans MS',cursive;font-weight:400;letter-spacing:1px;margin:0 0 8px;line-height:1.1}
+h2{font-size:32px}
+h3{font-size:25px}
+p{margin:6px 0 10px}
+ol,ul{margin:6px 0 10px;padding-left:22px}
+li{margin:4px 0}
+.wrap{max-width:860px;margin:0 auto;padding:4px 12px 90px}
+.dim{opacity:.6}
+
+/* header */
+.top{background:var(--red);border-bottom:var(--bd);padding:10px 12px;position:sticky;top:0;z-index:20}
+.top-in{max-width:860px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.logo{display:flex;align-items:center;gap:10px;min-width:0}
+.badge{font-family:'Bangers',cursive;font-size:36px;letter-spacing:2px;background:var(--yellow);border:var(--bd);border-radius:12px;padding:0 12px;box-shadow:3px 3px 0 var(--ink);transform:rotate(-3deg);line-height:1.15}
+.sub{font-family:'Bangers',cursive;font-size:20px;color:#fff;letter-spacing:1px;text-shadow:2px 2px 0 var(--ink);line-height:1.05}
+
+/* tabs */
+.tabs{max-width:860px;margin:14px auto 0;padding:0 12px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.tab{font:inherit;font-family:'Bangers',cursive;font-size:17px;letter-spacing:1px;background:#fff;color:var(--ink);border:var(--bd);border-radius:14px;padding:6px 1px;box-shadow:3px 3px 0 var(--ink);cursor:pointer;line-height:1.1}
+.tab .ic{display:block;font-size:22px}
+.tab.on{background:var(--blue);color:#fff;transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+
+.view{display:none}
+.view.on{display:block}
+
+/* cards & buttons */
+.card{background:var(--paper);border:var(--bd);border-radius:18px;box-shadow:var(--sh);padding:14px;margin:14px 0}
+.btn{font:inherit;font-family:'Bangers','Comic Sans MS',cursive;font-size:21px;letter-spacing:1px;color:var(--ink);background:#fff;border:var(--bd);border-radius:14px;padding:8px 16px;box-shadow:4px 4px 0 var(--ink);cursor:pointer;transition:transform .08s,box-shadow .08s;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;line-height:1.15}
+.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+.btn.blue{background:var(--blue);color:#fff}
+.btn.red{background:var(--red);color:#fff}
+.btn.green{background:var(--green)}
+.btn.yellow{background:var(--yellow)}
+.btn.orange{background:var(--orange)}
+.btn.white{background:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:2px 2px 0 var(--ink);transform:none}
+.btn.big{font-size:27px;width:100%;padding:11px;margin-top:6px}
+.btn.mini{font-size:17px;padding:3px 10px;box-shadow:3px 3px 0 var(--ink);border-radius:10px}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+
+textarea{width:100%;min-height:220px;resize:vertical;font-family:ui-monospace,Menlo,Consolas,'Courier New',monospace;font-weight:700;font-size:15px;line-height:1.4;color:var(--ink);background:#fff;border:var(--bd);border-radius:14px;padding:10px;box-shadow:inset 3px 3px 0 rgba(0,0,0,.12)}
+textarea:focus{outline:4px solid var(--blue)}
+#expText{min-height:120px;background:#f1f1f1}
+pre{background:#fff;border:3px solid var(--ink);border-radius:12px;padding:10px;margin:6px 0 8px;overflow-x:auto;font-family:ui-monospace,Menlo,Consolas,'Courier New',monospace;font-weight:700;font-size:14px;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+
+.log div{border:3px solid var(--ink);border-radius:12px;padding:6px 10px;margin:8px 0;background:#fff;word-break:break-word}
+.log .ok{background:#c9f7d8}.log .err{background:#ffd0d0}.log .warn{background:#fff1b8}
+
+/* stats */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:#fff;border:var(--bd);border-radius:14px;padding:8px;text-align:center;box-shadow:3px 3px 0 var(--ink);font-size:15px}
+.stat b{display:block;font-family:'Bangers',cursive;font-weight:400;font-size:30px;letter-spacing:1px;line-height:1.1}
+.stat.good{background:#c9f7d8}.stat.bad{background:#ffd9d9}
+.stat.score{grid-column:1/-1;background:var(--yellow)}
+.stat.score b{font-size:76px;color:var(--red);text-shadow:4px 4px 0 var(--ink)}
+.stats2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+
+/* data list */
+.mc{display:flex;gap:10px;align-items:center;background:#fff;border:var(--bd);border-radius:16px;box-shadow:var(--sh);padding:10px 12px;margin:14px 0}
+.mc.on{background:#d9ecff}
+.chk{font:inherit;width:36px;height:36px;border:var(--bd);border-radius:9px;background:#fff;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;padding:0;color:var(--ink)}
+.mc .mi{flex:1;min-width:0}
+.mn{font-family:'Bangers',cursive;font-weight:400;font-size:27px;letter-spacing:1px;overflow:hidden;text-overflow:ellipsis;line-height:1.1}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.tg{font-size:13px;border:2px solid var(--ink);border-radius:999px;padding:0 9px;background:var(--yellow);white-space:nowrap}
+.tg.alt{background:#fff}
+.pl{background:var(--paper);border:3px dashed var(--ink);border-radius:14px;padding:6px 10px;margin:-4px 0 14px}
+.pr{display:flex;gap:8px;align-items:center;border-bottom:2px dotted #888;padding:7px 0}
+.pr:last-child{border:0}
+.pr .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px}
+.empty{text-align:center}
+
+/* quiz */
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 10px}
+.pill{background:#fff;border:3px solid var(--ink);border-radius:999px;padding:1px 12px;font-size:15px;box-shadow:2px 2px 0 var(--ink);white-space:nowrap}
+.prog{height:22px;background:#fff;border:var(--bd);border-radius:999px;overflow:hidden;box-shadow:3px 3px 0 var(--ink)}
+.bar{height:100%;background:repeating-linear-gradient(45deg,var(--green),var(--green) 10px,#7bed9f 10px,#7bed9f 20px);transition:width .3s}
+.qnum{display:flex;justify-content:space-between;align-items:center;gap:8px;font-family:'Bangers',cursive;font-weight:400;font-size:25px;letter-spacing:1px}
+.qtext{font-size:22px;font-weight:900;margin:8px 0 14px;word-break:break-word;background:#fff;border:3px solid var(--ink);border-radius:14px;padding:12px}
+.hint{background:var(--yellow);border:3px solid var(--ink);border-radius:12px;padding:5px 10px;margin-bottom:12px;font-size:15px}
+.opt{font:inherit;font-weight:900;font-size:19px;display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:#fff;color:var(--ink);border:var(--bd);border-radius:14px;padding:10px;margin:0 0 12px;box-shadow:4px 4px 0 var(--ink);cursor:pointer}
+.opt .ltr{flex:0 0 auto;width:40px;height:40px;border:3px solid var(--ink);border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-family:'Bangers',cursive;font-weight:400;font-size:23px}
+.opt .ltr.sq{border-radius:10px}
+.opt .otx{flex:1;word-break:break-word}
+.opt.on{background:var(--blue);color:#fff;transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.opt.on .ltr{background:#fff;color:var(--ink)}
+
+.jd{position:relative;display:grid;grid-template-columns:1fr 1fr;column-gap:46px;align-items:start;margin:6px 0 14px}
+.jd-lines{position:absolute;left:0;top:0;pointer-events:none;z-index:0;overflow:visible}
+.jd-col{display:flex;flex-direction:column;gap:12px;position:relative;z-index:1;min-width:0}
+.jd-item{font:inherit;font-weight:900;font-size:18px;display:flex;align-items:center;gap:8px;text-align:left;width:100%;min-height:56px;background:#fff;color:var(--ink);border:var(--bd);border-radius:14px;padding:7px;cursor:pointer;box-shadow:3px 3px 0 var(--ink);word-break:break-word}
+.jd-item .ltr{flex:0 0 auto;min-width:32px;height:32px;border:3px solid var(--ink);border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-family:'Bangers',cursive;font-weight:400;font-size:19px}
+.jd-item.paired{border-color:var(--pc);box-shadow:4px 4px 0 var(--pc)}
+.jd-item.paired .ltr{background:var(--pc);color:#fff;text-shadow:1px 1px 0 var(--ink)}
+.jd-item.sel{background:var(--yellow);box-shadow:6px 6px 0 var(--ink);animation:wob .45s infinite alternate}
+@keyframes wob{from{transform:translate(-2px,-2px) rotate(-1.2deg)}to{transform:translate(-2px,-2px) rotate(1.2deg)}}
+.jd-ans{background:#fff;border:3px dashed var(--ink);border-radius:14px;padding:8px 10px;font-size:16px}
+.pr-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:6px 0;word-break:break-word}
+
+.boom{font-family:'Bangers',cursive;font-weight:400;font-size:42px;letter-spacing:2px;text-align:center;border:var(--bd);border-radius:20px;padding:10px;transform:rotate(-2deg);box-shadow:var(--sh);margin:14px 0;background:var(--pink);line-height:1.1}
+.boom.good{background:var(--green)}
+.boom.bad{background:var(--red);color:#fff;text-shadow:3px 3px 0 var(--ink)}
+
+.rv{border:var(--bd);border-radius:14px;padding:10px;margin:12px 0;background:#fff;box-shadow:3px 3px 0 var(--ink)}
+.rv.good{background:#c9f7d8}.rv.bad{background:#ffe0e0}
+.rv-h{display:flex;gap:8px;align-items:flex-start;word-break:break-word}
+.mark{font-size:22px;line-height:1.1}
+.rv-a{margin-top:8px;font-size:16px}
+.rv-c{background:#fff;border:3px dashed var(--green);border-radius:10px;padding:6px 8px;margin-top:8px}
+.ans-x{margin:3px 0 0 4px;word-break:break-word}
+
+.pickm{font:inherit;display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:#fff;color:var(--ink);border:var(--bd);border-radius:16px;box-shadow:var(--sh);padding:12px;margin:14px 0;cursor:pointer}
+.pickm:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+.pickm .mn{flex:1;min-width:0}
+.pickm .go{font-family:'Bangers',cursive;font-weight:400;font-size:22px;background:var(--green);border:3px solid var(--ink);border-radius:12px;padding:2px 10px;white-space:nowrap}
+
+.tbl{width:100%;border:3px solid var(--ink);border-radius:12px;overflow:hidden;background:#fff}
+.tbl div{display:grid;grid-template-columns:1.2fr 1fr 1fr;padding:6px 10px;border-bottom:2px dotted #777;font-size:15px}
+.tbl div:first-child{background:var(--yellow);border-bottom:3px solid var(--ink)}
+.tbl div:last-child{border-bottom:0}
+
+/* hafalan */
+.hf-top{background:#e9d8ff}
+.hf-headrow{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.hf-headrow h2{margin-bottom:4px}
+.btn.plus{width:56px;height:56px;padding:0;border-radius:50%;font-size:40px;line-height:1;flex:0 0 auto}
+.stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.stats3 .stat{padding:6px 4px;font-size:14px}
+.hf-sec{display:inline-block;background:#fff;border:var(--bd);border-radius:12px;padding:2px 14px;box-shadow:3px 3px 0 var(--ink);margin:18px 0 0;transform:rotate(-1deg)}
+.hf-sec.ok{background:#c9f7d8}
+.hf{background:#fff;border:var(--bd);border-radius:16px;box-shadow:var(--sh);margin:14px 0;overflow:hidden}
+.hf.done{background:#c9f7d8}
+.hf-open{font:inherit;display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:transparent;color:var(--ink);border:0;padding:12px;cursor:pointer}
+.hf-open:active{background:rgba(0,0,0,.08)}
+.hf-open .mi{flex:1;min-width:0;display:block}
+.hf-open .mn{display:block;word-break:break-word}
+.hf-open .go{font-family:'Bangers',cursive;font-weight:400;font-size:22px;background:var(--green);border:3px solid var(--ink);border-radius:12px;padding:2px 10px;white-space:nowrap}
+.hf.done .go{background:#fff}
+.hf-bar{display:block;height:14px;background:#fff;border:3px solid var(--ink);border-radius:999px;overflow:hidden;margin-top:8px}
+.hf-bar i{display:block;height:100%;background:var(--green);transition:width .3s}
+.hf.done .hf-bar i{background:#16a34a}
+.hf-side{display:flex;gap:8px;align-items:center;border-top:3px dashed var(--ink);padding:8px 12px}
+.hf-side .btn:first-child{flex:1 1 auto}
+.fl{display:block;font-family:'Bangers','Comic Sans MS',cursive;font-weight:400;font-size:21px;letter-spacing:1px;margin:12px 0 4px}
+.inp{width:100%;font:inherit;font-weight:900;font-size:18px;color:var(--ink);background:#fff;border:var(--bd);border-radius:14px;padding:10px;box-shadow:inset 3px 3px 0 rgba(0,0,0,.12)}
+.inp:focus{outline:4px solid var(--blue)}
+#hfText{min-height:220px;font-family:inherit;font-size:17px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0 12px}
+.seg button{font:inherit;font-family:'Bangers','Comic Sans MS',cursive;font-size:20px;letter-spacing:1px;line-height:1.1;background:#fff;color:var(--ink);border:var(--bd);border-radius:12px;padding:6px 2px;box-shadow:3px 3px 0 var(--ink);cursor:pointer}
+.seg button small{display:block;font-family:'Comic Neue','Comic Sans MS',cursive;font-weight:700;font-size:12px;letter-spacing:0}
+.seg button.on{background:var(--blue);color:#fff;transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.hf-center{text-align:center}
+.hf-num{font-family:'Bangers','Comic Sans MS',cursive;font-weight:400;font-size:150px;line-height:1;text-align:center;color:var(--red);text-shadow:6px 6px 0 var(--ink);margin:6px 0;animation:pop .5s ease-out}
+.btn.hf-mark{font-size:20px;margin:0 0 12px}
+.hf-cover{min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;background:repeating-linear-gradient(45deg,#d7dee8 0 12px,#eaeff5 12px 24px);border:3px solid var(--ink);border-radius:14px;padding:16px;margin:8px 0 14px;font-size:16px}
+.hf-cover b{font-family:'Bangers','Comic Sans MS',cursive;font-weight:400;font-size:32px;letter-spacing:1px}
+.hf-text{white-space:pre-wrap;min-height:150px}
+.hf-nav{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.hf-nav .btn{width:100%;font-size:19px;padding:8px 6px}
+.flipin{animation:flipin .28s ease-out}
+@keyframes flipin{from{transform:rotateX(80deg);opacity:.2}to{transform:none;opacity:1}}
+@keyframes pop{0%{transform:scale(.3) rotate(-10deg);opacity:0}60%{transform:scale(1.15) rotate(3deg);opacity:1}100%{transform:none}}
+@media(prefers-reduced-motion:reduce){.flipin,.hf-num{animation:none}}
+
+/* modal & toast */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:20px;z-index:100}
+.modal-box{background:var(--paper);border:var(--bd);border-radius:18px;box-shadow:8px 8px 0 var(--ink);padding:18px;max-width:420px;width:100%}
+#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(140px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;border:3px solid #fff;z-index:120;transition:transform .25s;max-width:90vw;text-align:center;font-size:16px}
+#toast.show{transform:translateX(-50%) translateY(0)}
+
+@media(max-width:480px){
+  body{font-size:16px}
+  .badge{font-size:30px}
+  .sub{font-size:16px}
+  .tab{font-size:14px;letter-spacing:.5px}
+  .tab .ic{font-size:20px}
+  .hf-num{font-size:110px}
+  h2{font-size:28px}
+  .qtext{font-size:20px}
+  .opt{font-size:18px}
+  .jd{column-gap:38px}
+  .jd-item{font-size:16px}
+}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="top-in">
+  <div class="logo"><span class="badge">BMFS</span><span class="sub">Brilliant Method<br>For School</span></div>
+  <span class="pill" id="topTimer" hidden>⏱ 00:00</span>
+</div></header>
+
+<nav class="tabs">
+  <button class="tab" data-go="import"><span class="ic">📥</span>Import</button>
+  <button class="tab" data-go="data"><span class="ic">📚</span>Data Soal</button>
+  <button class="tab" data-go="play"><span class="ic">🚀</span>Mulai</button>
+  <button class="tab" data-go="hafal"><span class="ic">🧠</span>Ayo Hafalan</button>
+  <button class="tab" data-go="info"><span class="ic">ℹ️</span>Info</button>
+</nav>
+
+<div class="wrap">
+
+<!-- ============ IMPORT ============ -->
+<section class="view" id="v-import">
+  <div class="card">
+    <h2>📥 Import Soal</h2>
+    <p>Tempel data soal di bawah (satu baris = satu data), atau pilih file hasil export.</p>
+    <textarea id="impText" spellcheck="false" placeholder="MTK, pilgan[4+7|11|13|12|15|14], [6×4|24|26|28|30|25]&#10;MTK, jodohkan[A=5+5, B=3+2, C=6+7|1=10*,2=5*,3=13]&#10;MTK, pilganmax[&quot;angka ganjil adalah..&quot;|∆3|∆9|∆11|6|2]"></textarea>
+    <div class="row">
+      <button class="btn blue" id="btnImport">📥 Import!</button>
+      <label class="btn green" for="impFile">📂 Dari File</label>
+      <input type="file" id="impFile" accept=".txt,.bmfs,text/plain" hidden>
+      <button class="btn yellow" id="btnExample">✏️ Isi Contoh</button>
+      <button class="btn white" id="btnClearImp">🧹 Kosongkan</button>
+    </div>
+    <div class="log" id="impLog"></div>
+  </div>
+</section>
+
+<!-- ============ DATA ============ -->
+<section class="view" id="v-data">
+  <div class="card">
+    <h2>📚 Data Soal</h2>
+    <div class="stats2" id="dataStats"></div>
+    <div class="row">
+      <button class="btn blue" id="btnAdd">➕ Tambah Baru</button>
+      <button class="btn red" id="btnDel">🗑️ Hapus Terpilih</button>
+      <button class="btn white" id="btnSelAll">☑️ Pilih Semua</button>
+    </div>
+    <p class="dim" style="font-size:14px;margin:0">Centang mapel untuk dihapus / di-export. 👁 untuk melihat &amp; menghapus soal satu per satu.</p>
+  </div>
+  <div id="dataList"></div>
+  <div class="card">
+    <h2>💾 Export / Save Soal</h2>
+    <p>Hasilnya berupa file teks yang bisa di-import lagi sekali tempel. Jika ada mapel yang dicentang, hanya itu yang disimpan.</p>
+    <div class="row">
+      <button class="btn green" id="btnExportFile">⬇️ Simpan ke File</button>
+      <button class="btn yellow" id="btnCopy">📋 Salin</button>
+    </div>
+    <textarea id="expText" readonly spellcheck="false"></textarea>
+  </div>
+</section>
+
+<!-- ============ MULAI ============ -->
+<section class="view" id="v-play"></section>
+
+<!-- ============ AYO HAFALAN ============ -->
+<section class="view" id="v-hafal"></section>
+
+<!-- ============ INFO ============ -->
+<section class="view" id="v-info">
+  <div class="card">
+    <h2>ℹ️ Tentang BMFS</h2>
+    <p><b>©VIKALZDEV 2026</b></p>
+    <p><b>Brilliant Method For School</b> — latihan soal yang tidak bisa asal-asalan: tiap <b>5 soal</b> harus <b>benar semua</b> baru boleh lanjut. Kalau ada 1 saja yang salah, jawaban benar ditampilkan, lalu 5 soal itu diulang dengan urutan &amp; pilihan yang diacak lagi!</p>
+  </div>
+  <div class="card">
+    <h3>🧭 Cara Pakai</h3>
+    <ol>
+      <li><b>Import</b> — tempel data soal lalu tekan Import.</li>
+      <li><b>Data Soal</b> — cek mapel &amp; jumlah soal, tambah/hapus, atau simpan ke file.</li>
+      <li><b>Mulai</b> — pilih mapel dan kerjakan sampai tuntas.</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>📝 Format Data</h3>
+    <p>Satu baris = satu data, maksimal <b>50 soal</b> per baris. Boleh banyak baris sekaligus.</p>
+
+    <b>1) Pilihan Ganda — <code>pilgan</code></b>
+<pre>MTK, pilgan[4+7|11|13|12|15|14], [6×4|24|26|28|30|25]</pre>
+    <p>Urutan: <code>soal|jawaban benar|B|C|D|E</code>. Jawaban benar <b>selalu ditulis pertama</b> (jadi "A"). Saat latihan, pilihan diacak otomatis.</p>
+
+    <b>2) Pilihan Lebih dari 1 — <code>pilganmax</code></b>
+<pre>MTK, pilganmax["angka ganjil adalah.."|∆3|∆9|∆11|6|2]</pre>
+    <p>Awali jawaban yang benar dengan <b>∆</b> (boleh lebih dari satu). Semua yang benar harus dipilih.</p>
+
+    <b>3) Menjodohkan — <code>jodohkan</code></b>
+<pre>MTK, jodohkan[A=5+5, B=3+2, C=6+7|1=10*,2=5*,3=13]</pre>
+    <p>Kiri sebelum <code>|</code>: <code>A=...</code>, <code>B=...</code> (pisah dengan koma). Kanan: <code>1=...</code>, <code>2=...</code>. Pasangan benar mengikuti urutan (A↔1, B↔2, C↔3). Saat latihan sisi kanan diacak &amp; dinomori ulang. Tanda <code>*</code> opsional. Tekan satu item kiri lalu pasangannya di kanan → muncul garis dan tulisan <code>A. (5+5) =&gt; 1. (10)</code>.</p>
+  </div>
+  <div class="card">
+    <h3>⭐ Waktu &amp; Nilai</h3>
+    <ul>
+      <li>Waktu dihitung dari soal pertama sampai soal terakhir tuntas (termasuk saat mengulang).</li>
+      <li><b>Nilai</b> = (soal yang benar di <b>percobaan pertama</b> ÷ jumlah soal) × 100.</li>
+      <li>Hasil akhir juga menampilkan total benar/salah di semua percobaan dan jumlah pengulangan batch.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>🧠 Ayo Hafalan</h3>
+    <ol>
+      <li>Buka menu <b>Ayo Hafalan</b>, tekan tombol <b>+</b>, isi <b>judul</b> dan tempel <b>teks hafalan</b> lengkap, pilih ukuran potongan, lalu simpan. Hafalan boleh banyak.</li>
+      <li>Tekan satu hafalan → hitung mundur 3 detik → bagian 1 muncul dalam keadaan <b>tertutup</b>.</li>
+      <li>Ucapkan dari ingatan, lalu tekan <b>FLIP</b> untuk membuka atau menutup teks. Pindah bagian dengan <b>Sebelumnya</b> / <b>Selanjutnya</b> (berurutan, tidak diacak).</li>
+      <li>Tombol di atas menandai bagian itu <b>sudah hafal</b>. Kalau semua bagian sudah hafal, kamu ditanya untuk mencentang hafalan → berwarna hijau &amp; pindah ke daftar <b>Hafal</b>.</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>💡 Catatan</h3>
+    <ul>
+      <li>Data soal tersimpan otomatis di browser ini. Untuk cadangan atau pindah perangkat, pakai <b>Export</b>.</li>
+      <li>Hafalan juga tersimpan otomatis di browser ini, terpisah dari data soal, dan belum bisa di-export.</li>
+      <li>Import data yang sama dua kali tidak akan menggandakan soal.</li>
+    </ul>
+  </div>
+</section>
+
+</div>
+
+<div id="modal" class="modal" hidden>
+  <div class="modal-box">
+    <h3 id="mTitle"></h3>
+    <p id="mMsg"></p>
+    <div class="row" style="justify-content:flex-end">
+      <button class="btn white" id="mNo">Batal</button>
+      <button class="btn red" id="mYes">Ya</button>
+    </div>
+  </div>
+</div>
+<div id="toast"></div>
+
+<script>
+(()=>{
+'use strict';
+
+/* ---------- util ---------- */
+const KEY='bmfs_soal_v1';
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-4);
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const LET='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const COLORS=['#ff4757','#3d8bff','#2ed573','#ff9f43','#a55eea','#ff8fc7','#00b8a9','#e1b12c'];
+const TNAME={pg:'pilgan',max:'pilganmax',jd:'jodohkan'};
+const TLABEL={pg:'Pilihan Ganda',max:'Pilihan > 1',jd:'Menjodohkan'};
+const TSHORT={pg:'PG',max:'Kompleks',jd:'Jodoh'};
+const MAXQ=50, BATCH=5;
+const fmt=ms=>{const s=Math.max(0,Math.floor(ms/1000)),h=Math.floor(s/3600),m=Math.floor(s%3600/60),c=s%60,p=n=>String(n).padStart(2,'0');return (h?h+':':'')+p(m)+':'+p(c);};
+
+let DB=[], storageOK=true;
+function load(){
+  try{const r=localStorage.getItem(KEY);DB=r?JSON.parse(r):[];if(!Array.isArray(DB))DB=[];}
+  catch(e){DB=[];storageOK=false;}
+}
+function save(){
+  try{localStorage.setItem(KEY,JSON.stringify(DB));}
+  catch(e){if(storageOK){storageOK=false;toast('⚠️ Penyimpanan otomatis tidak tersedia. Pakai Export agar data aman!');}}
+}
+let tT;
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('show'),2600);}
+function ask(title,msg,yes='Ya'){
+  return new Promise(res=>{
+    const m=$('#modal');
+    $('#mTitle').textContent=title;$('#mMsg').textContent=msg;$('#mYes').textContent=yes;m.hidden=false;
+    const done=v=>{m.hidden=true;$('#mYes').onclick=null;$('#mNo').onclick=null;res(v);};
+    $('#mYes').onclick=()=>done(true);$('#mNo').onclick=()=>done(false);
+  });
+}
+
+/* ---------- parser ---------- */
+const HEAD=/^\s*([^,\[\]]+?)\s*,\s*([A-Za-z][A-Za-z0-9 ]*?)\s*\[/;
+function typeOf(s){
+  s=s.trim().toLowerCase().replace(/\s+/g,' ');
+  if(/^(pilganmax|pilgan max|pilihan ganda kompleks|pilgan kompleks|kompleks|pilihan lebih dari 1)$/.test(s))return 'max';
+  if(/^(pilgan|pilihan ganda|pg)$/.test(s))return 'pg';
+  if(/^(jodohkan|menjodohkan|jodoh)$/.test(s))return 'jd';
+  return null;
+}
+function unquote(s){s=s.trim();const m=s.match(/^["“”]([\s\S]*)["“”]$/);return m?m[1].trim():s;}
+function groupsOf(raw){
+  const out=[];let d=0,st=0;
+  for(let i=0;i<raw.length;i++){
+    const c=raw[i];
+    if(c==='['){if(d===0)st=i+1;d++;}
+    else if(c===']'&&d>0){d--;if(d===0)out.push(raw.slice(st,i));}
+  }
+  return {out,open:d>0};
+}
+function splitItems(s){return s.split(/,\s*(?=[A-Za-z0-9]{1,3}\s*[=#])/).map(x=>x.trim()).filter(Boolean);}
+function parseItem(x){const m=x.match(/^([A-Za-z0-9]{1,3})\s*[=#]\s*([\s\S]*?)\s*\**\s*$/);return m&&m[2]!==''?m[2]:null;}
+function parseGroup(t,gr){
+  if(t==='jd'){
+    const k=gr.indexOf('|');
+    if(k<0)return {err:'format jodohkan: [A=..., B=...|1=..., 2=...]'};
+    const L=splitItems(gr.slice(0,k)).map(parseItem),R=splitItems(gr.slice(k+1)).map(parseItem);
+    if(L.length<2||L.includes(null))return {err:'sisi kiri minimal 2 item berformat A=isi'};
+    if(R.includes(null)||R.length<L.length)return {err:'sisi kanan harus punya jawaban sebanyak sisi kiri (1=isi, 2=isi, ...)'};
+    return {left:L,right:R};
+  }
+  const p=gr.split('|').map(x=>x.trim());
+  const q=unquote(p[0]);
+  const raw=p.slice(1).filter(x=>x!=='');
+  if(!q)return {err:'teks soal kosong'};
+  if(raw.length<2)return {err:'minimal 2 pilihan'};
+  if(t==='pg')return {q,opts:raw.slice(0,10)};
+  const opts=raw.slice(0,10).map(x=>({c:/^[∆Δ△▲]/.test(x),t:x.replace(/^[∆Δ△▲]\s*/,'')})).filter(o=>o.t!=='');
+  if(opts.length<2)return {err:'minimal 2 pilihan'};
+  if(!opts.some(o=>o.c))return {err:'belum ada jawaban benar (tandai dengan ∆)'};
+  return {q,opts};
+}
+function parseText(text){
+  const lines=String(text).replace(/\r/g,'').split('\n');
+  const entries=[],res={items:[],log:[]};let cur=null;
+  lines.forEach((ln,i)=>{
+    if(!ln.trim())return;
+    const m=ln.match(HEAD);
+    if(m){cur={no:i+1,mapel:m[1].trim(),tr:m[2].trim(),raw:ln.slice(m[0].length-1)};entries.push(cur);}
+    else if(cur){cur.raw+=' '+ln.trim();}
+    else res.log.push({k:'err',m:`Baris ${i+1}: format tidak dikenali. Contoh: MTK, pilgan[soal|jawaban|B|C|D|E]`});
+  });
+  entries.forEach(e=>{
+    const t=typeOf(e.tr);
+    if(!t){res.log.push({k:'err',m:`Baris ${e.no}: tipe "${e.tr}" tidak dikenal (pakai pilgan / jodohkan / pilganmax).`});return;}
+    const g=groupsOf(e.raw);
+    if(g.open){res.log.push({k:'err',m:`Baris ${e.no}: tanda [ ] tidak lengkap, baris dilewati.`});return;}
+    let groups=g.out;
+    if(!groups.length){res.log.push({k:'err',m:`Baris ${e.no}: tidak ada soal di dalam [ ].`});return;}
+    if(groups.length>MAXQ){res.log.push({k:'warn',m:`Baris ${e.no}: ${groups.length} soal, hanya ${MAXQ} pertama yang diambil.`});groups=groups.slice(0,MAXQ);}
+    groups.forEach((gr,gi)=>{
+      const q=parseGroup(t,gr);
+      if(q.err){res.log.push({k:'err',m:`Baris ${e.no}, soal ${gi+1}: ${q.err}`});return;}
+      q.mapel=e.mapel;q.type=t;res.items.push(q);
+    });
+  });
+  return res;
+}
+const sig=q=>JSON.stringify([q.mapel.toLowerCase(),q.type,q.q||'',q.opts||'',q.left||'',q.right||'']);
+function addItems(items){
+  const have=new Set(DB.map(sig));const stat=new Map();let dup=0;
+  items.forEach(q=>{
+    const ex=DB.find(d=>d.mapel.toLowerCase()===q.mapel.toLowerCase());
+    if(ex)q.mapel=ex.mapel;
+    const s=sig(q);
+    if(have.has(s)){dup++;return;}
+    have.add(s);q.id=uid();DB.push(q);
+    const k=q.type+'\u0001'+q.mapel;stat.set(k,(stat.get(k)||0)+1);
+  });
+  return {stat,dup};
+}
+function doImport(text){
+  if(!String(text).trim()){toast('Isi dulu datanya ya!');return;}
+  const r=parseText(text);
+  const {stat,dup}=addItems(r.items);
+  save();
+  const out=[];let total=0;
+  stat.forEach((n,k)=>{const [t,m]=k.split('\u0001');total+=n;out.push({k:'ok',m:`✅ ${m}: +${n} soal ${TLABEL[t]}`});});
+  if(dup)out.push({k:'warn',m:`♻️ ${dup} soal sudah ada (duplikat), dilewati.`});
+  r.log.forEach(l=>out.push(l));
+  if(!out.length)out.push({k:'err',m:'Tidak ada soal yang terbaca.'});
+  $('#impLog').innerHTML=out.map(l=>`<div class="${l.k}">${esc(l.m)}</div>`).join('');
+  renderData();
+  toast(total?`🎉 ${total} soal masuk!`:'Tidak ada soal baru');
+}
+
+/* ---------- export ---------- */
+function fmtGroup(q){
+  if(q.type==='pg')return '['+[q.q,...q.opts].join('|')+']';
+  if(q.type==='max')return '["'+q.q+'"|'+q.opts.map(o=>(o.c?'∆':'')+o.t).join('|')+']';
+  return '['+q.left.map((t,i)=>LET[i]+'='+t).join(', ')+'|'+q.right.map((t,i)=>(i+1)+'='+t+'*').join(',')+']';
+}
+function exportText(qs){
+  const by=new Map();
+  qs.forEach(q=>{if(!by.has(q.mapel))by.set(q.mapel,{pg:[],max:[],jd:[]});by.get(q.mapel)[q.type].push(q);});
+  const out=[];
+  by.forEach((o,m)=>['pg','max','jd'].forEach(t=>{
+    for(let i=0;i<o[t].length;i+=MAXQ)out.push(m+', '+TNAME[t]+o[t].slice(i,i+MAXQ).map(fmtGroup).join(', '));
+  }));
+  return out.join('\n');
+}
+function download(name,text){
+  const b=new Blob([text],{type:'text/plain;charset=utf-8'});
+  const u=URL.createObjectURL(b);const a=document.createElement('a');
+  a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(u),1500);
+}
+
+/* ---------- data view ---------- */
+let selM=new Set(),openM=new Set();
+function mapelList(){
+  const m=new Map();
+  DB.forEach(q=>{if(!m.has(q.mapel))m.set(q.mapel,[]);m.get(q.mapel).push(q);});
+  return Array.from(m,([name,qs])=>({name,qs}));
+}
+const exportTargets=()=>selM.size?DB.filter(q=>selM.has(q.mapel)):DB;
+function qPreview(q){return q.type==='jd'?q.left.map((t,i)=>LET[i]+': '+t).join('   '):q.q;}
+function renderData(){
+  const list=mapelList();
+  Array.from(selM).forEach(n=>{if(!list.some(x=>x.name===n))selM.delete(n);});
+  $('#dataStats').innerHTML=`<div class="stat"><b>${list.length}</b>Mapel</div><div class="stat"><b>${DB.length}</b>Total Soal</div>`;
+  $('#dataList').innerHTML=list.length?list.map((x,i)=>{
+    const cnt={pg:0,max:0,jd:0};x.qs.forEach(q=>cnt[q.type]++);
+    const on=selM.has(x.name),op=openM.has(x.name);
+    return `<div class="mc ${on?'on':''}">
+      <button class="chk" data-act="selm" data-i="${i}" aria-label="pilih">${on?'✔':''}</button>
+      <div class="mi"><div class="mn">${esc(x.name)}</div>
+        <div class="tags"><span class="tg">${x.qs.length} soal</span>${['pg','max','jd'].filter(t=>cnt[t]).map(t=>`<span class="tg alt">${TSHORT[t]} ${cnt[t]}</span>`).join('')}</div></div>
+      <button class="btn mini yellow" data-act="expm" data-i="${i}">${op?'🔼':'👁'}</button>
+    </div>`+(op?`<div class="pl">`+x.qs.map(q=>`<div class="pr"><span class="tg alt">${TSHORT[q.type]}</span><span class="t">${esc(qPreview(q))}</span><button class="btn mini red" data-act="delq" data-id="${esc(q.id)}">✕</button></div>`).join('')+`</div>`:'');
+  }).join(''):`<div class="card empty"><h3>📭 Belum ada soal</h3><p>Tekan ➕ Tambah Baru untuk import soal.</p></div>`;
+  $('#btnDel').disabled=!selM.size;
+  $('#btnExportFile').disabled=!DB.length;
+  $('#btnExportFile').textContent=selM.size?`⬇️ Simpan Terpilih (${selM.size})`:'⬇️ Simpan Semua';
+  $('#expText').value=exportText(exportTargets());
+}
+
+/* ---------- quiz engine ---------- */
+let S=null,tick=null;
+function prepare(q){
+  if(q.type==='jd')return {q,order:shuffle(q.right.map((_,i)=>i)),ans:{},sel:null};
+  return {q,order:shuffle(q.opts.map((_,i)=>i)),ans:q.type==='pg'?null:new Set()};
+}
+function isCorrect(P){
+  const q=P.q;
+  if(q.type==='pg')return P.ans!==null&&P.order[P.ans]===0;
+  if(q.type==='max'){
+    const ch=Array.from(P.ans).map(d=>P.order[d]);
+    const ok=q.opts.map((o,i)=>o.c?i:-1).filter(i=>i>=0);
+    return ch.length===ok.length&&ok.every(i=>ch.includes(i));
+  }
+  return q.left.every((_,i)=>P.ans[i]!=null&&P.order[P.ans[i]]===i);
+}
+function canNext(P){
+  const q=P.q;
+  if(q.type==='pg')return P.ans!==null;
+  if(q.type==='max')return P.ans.size>0;
+  return Object.keys(P.ans).length===q.left.length;
+}
+const cur=()=>S.prep[S.qi];
+
+function startSession(name){
+  const pool=DB.filter(q=>q.mapel===name);
+  if(!pool.length)return;
+  const order=shuffle(pool.slice()),batches=[];
+  for(let i=0;i<order.length;i+=BATCH)batches.push(order.slice(i,i+BATCH));
+  S={mapel:name,total:pool.length,batches,bi:0,attempt:1,retries:0,first:new Map(),tc:0,tw:0,t0:Date.now(),tEnd:0,bt0:Date.now(),log:[],phase:'q',qi:0,prep:[],results:[]};
+  beginAttempt();startTick();
+}
+function beginAttempt(){
+  S.prep=shuffle(S.batches[S.bi].slice()).map(prepare);
+  S.qi=0;S.phase='q';renderPlay();
+}
+function nextQ(){
+  const P=cur();if(!canNext(P))return;
+  if(S.qi<S.prep.length-1){S.qi++;renderPlay();}else finishAttempt();
+}
+function finishAttempt(){
+  S.results=S.prep.map(P=>({P,ok:isCorrect(P)}));
+  S.results.forEach(r=>{
+    if(r.ok)S.tc++;else S.tw++;
+    if(!S.first.has(r.P.q.id))S.first.set(r.P.q.id,r.ok);
+  });
+  const all=S.results.every(r=>r.ok);
+  if(all)S.log.push({no:S.bi+1,att:S.attempt,ms:Date.now()-S.bt0});
+  S.phase=all?'perfect':'review';
+  renderPlay();
+}
+function again(){S.attempt++;S.retries++;beginAttempt();}
+function nextBatch(){
+  if(S.bi<S.batches.length-1){S.bi++;S.attempt=1;S.bt0=Date.now();beginAttempt();}
+  else{S.phase='done';S.tEnd=Date.now();stopTick();renderPlay();}
+}
+function startTick(){stopTick();tick=setInterval(updTime,500);updTime();}
+function stopTick(){if(tick){clearInterval(tick);tick=null;}}
+function updTime(){
+  const t=$('#topTimer');
+  if(!S||S.phase==='done'){t.hidden=true;return;}
+  const s='⏱ '+fmt(Date.now()-S.t0);
+  t.hidden=(curView==='play');t.textContent=s;
+  $$('.js-time').forEach(e=>{e.textContent=s;});
+}
+
+/* ---------- quiz rendering ---------- */
+function pairText(P,i,d){
+  const q=P.q;
+  return `${LET[i]}. (${esc(q.left[i])}) =&gt; ${d+1}. (${esc(q.right[P.order[d]])})`;
+}
+function userAns(P){
+  const q=P.q;
+  if(q.type==='pg')return P.ans===null?'(kosong)':`${LET[P.ans]}. ${esc(q.opts[P.order[P.ans]])}`;
+  if(q.type==='max'){
+    const a=Array.from(P.ans).sort((x,y)=>x-y).map(d=>`${LET[d]}. ${esc(q.opts[P.order[d]].t)}`);
+    return a.length?a.join('<br>'):'(kosong)';
+  }
+  return q.left.map((_,i)=>P.ans[i]!=null?pairText(P,i,P.ans[i]):`${LET[i]}. (${esc(q.left[i])}) =&gt; (kosong)`).join('<br>');
+}
+function rightAns(P){
+  const q=P.q;
+  if(q.type==='pg')return `${LET[P.order.indexOf(0)]}. ${esc(q.opts[0])}`;
+  if(q.type==='max')return P.order.map((oi,d)=>q.opts[oi].c?`${LET[d]}. ${esc(q.opts[oi].t)}`:null).filter(Boolean).join('<br>');
+  return q.left.map((_,i)=>pairText(P,i,P.order.indexOf(i))).join('<br>');
+}
+function ansHTML(P){
+  const q=P.q;
+  if(q.type==='pg')return P.order.map((oi,d)=>`<button class="opt ${P.ans===d?'on':''}" data-act="opt" data-d="${d}"><span class="ltr">${LET[d]}</span><span class="otx">${esc(q.opts[oi])}</span></button>`).join('');
+  if(q.type==='max')return `<div class="hint">☑️ Pilih SEMUA jawaban yang benar (bisa lebih dari 1)</div>`+P.order.map((oi,d)=>`<button class="opt ${P.ans.has(d)?'on':''}" data-act="optm" data-d="${d}"><span class="ltr sq">${P.ans.has(d)?'✔':LET[d]}</span><span class="otx">${esc(q.opts[oi].t)}</span></button>`).join('');
+  const rev={};Object.keys(P.ans).forEach(l=>{rev[P.ans[l]]=+l;});
+  const L=q.left.map((t,i)=>{
+    const p=P.ans[i]!=null,s=P.sel&&P.sel.s==='l'&&P.sel.i===i;
+    return `<button class="jd-item ${p?'paired':''} ${s?'sel':''}" ${p?`style="--pc:${COLORS[i%8]}"`:''} data-act="jl" data-i="${i}"><span class="ltr">${LET[i]}</span><span>${esc(t)}</span></button>`;
+  }).join('');
+  const R=P.order.map((ri,d)=>{
+    const li=rev[d],p=li!=null,s=P.sel&&P.sel.s==='r'&&P.sel.i===d;
+    return `<button class="jd-item ${p?'paired':''} ${s?'sel':''}" ${p?`style="--pc:${COLORS[li%8]}"`:''} data-act="jr" data-d="${d}"><span class="ltr">${d+1}</span><span>${esc(q.right[ri])}</span></button>`;
+  }).join('');
+  const rows=q.left.map((_,i)=>P.ans[i]!=null?`<div class="pr-row"><span>${pairText(P,i,P.ans[i])}</span><button class="btn mini white" data-act="unp" data-i="${i}">✕</button></div>`:'').join('');
+  return `<div class="hint">🔗 Tekan satu item, lalu pasangannya di sisi seberang.</div>
+    <div class="jd" id="jd"><svg class="jd-lines" id="jdSvg"></svg><div class="jd-col">${L}</div><div class="jd-col">${R}</div></div>
+    <div class="jd-ans"><b>Jawabanmu:</b>${rows||'<div class="dim">belum ada pasangan</div>'}</div>`;
+}
+function drawLines(){
+  try{
+    if(!S||S.phase!=='q')return;
+    const P=cur();if(P.q.type!=='jd')return;
+    const box=$('#jd'),svg=$('#jdSvg');if(!box||!svg)return;
+    const br=box.getBoundingClientRect();
+    svg.setAttribute('width',br.width);svg.setAttribute('height',br.height);
+    let h='';
+    Object.keys(P.ans).forEach(li=>{
+      const a=box.querySelector(`[data-act="jl"][data-i="${li}"]`),b=box.querySelector(`[data-act="jr"][data-d="${P.ans[li]}"]`);
+      if(!a||!b)return;
+      const ar=a.getBoundingClientRect(),r2=b.getBoundingClientRect();
+      const x1=ar.right-br.left,y1=ar.top+ar.height/2-br.top,x2=r2.left-br.left,y2=r2.top+r2.height/2-br.top;
+      h+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#111" stroke-width="11" stroke-linecap="round"/><line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${COLORS[li%8]}" stroke-width="5" stroke-linecap="round"/>`;
+    });
+    svg.innerHTML=h;
+  }catch(e){}
+}
+function renderAns(){
+  if(!S||S.phase!=='q')return;
+  const P=cur(),box=$('#ans');if(!box)return;
+  box.innerHTML=ansHTML(P);
+  const b=$('#btnNext');if(b)b.disabled=!canNext(P);
+  if(P.q.type==='jd')requestAnimationFrame(drawLines);
+}
+const pillsHTML=()=>`<div class="pills"><span class="pill">📖 ${esc(S.mapel)}</span><span class="pill">Batch ${S.bi+1}/${S.batches.length}</span><span class="pill">🔁 Percobaan ${S.attempt}</span><span class="pill js-time">⏱ ${fmt(Date.now()-S.t0)}</span></div>`;
+function rvHTML(r){
+  const q=r.P.q;
+  const title=q.type==='jd'?'🔗 Jodohkan: '+q.left.map((t,i)=>LET[i]+'. '+t).join(' · '):q.q;
+  const body=r.ok?'':`<div class="rv-a"><div>❌ Jawabanmu:<div class="ans-x">${userAns(r.P)}</div></div><div class="rv-c">✅ Jawaban benar:<div class="ans-x">${rightAns(r.P)}</div></div></div>`;
+  return `<div class="rv ${r.ok?'good':'bad'}"><div class="rv-h"><span class="mark">${r.ok?'✔️':'❌'}</span><span>${esc(title)}</span></div>${body}</div>`;
+}
+function pickHTML(){
+  const list=mapelList();
+  if(!list.length)return `<div class="card empty"><h2>🚀 Mulai Belajar</h2><p>Belum ada soal. Import dulu yuk!</p><button class="btn blue" data-go="import">📥 Ke Import Soal</button></div>`;
+  return `<div class="card"><h2>🚀 Pilih Mapel</h2><p>Soal diacak, <b>${BATCH} soal per batch</b>. Satu batch harus benar SEMUA baru lanjut. Ada yang salah? Jawaban benar ditampilkan, lalu ${BATCH} soal diulang (acak)!</p></div>`+
+    list.map((x,i)=>`<button class="pickm" data-act="start" data-i="${i}"><span class="mn">${esc(x.name)}</span><span class="tg">${x.qs.length} soal</span><span class="go">▶ MULAI</span></button>`).join('');
+}
+function renderPlay(){
+  const v=$('#v-play');
+  if(!S){v.innerHTML=pickHTML();updTime();return;}
+  const n=S.prep.length;
+  if(S.phase==='q'){
+    const P=cur(),q=P.q,last=S.qi===n-1;
+    v.innerHTML=`${pillsHTML()}
+      <div class="prog"><div class="bar" style="width:${S.qi/n*100}%"></div></div>
+      <div class="card">
+        <div class="qnum"><span>Soal ${S.qi+1}/${n}</span><span class="tg">${TLABEL[q.type]}</span></div>
+        <div class="qtext">${q.type==='jd'?'🔗 Jodohkan pasangan yang tepat!':esc(q.q)}</div>
+        <div id="ans"></div>
+        <button class="btn green big" data-act="next" id="btnNext" disabled>${last?'SELESAI ✔':'JAWAB ➜'}</button>
+      </div>
+      <div class="row"><button class="btn mini white" data-act="quit">🚪 Keluar</button></div>`;
+    renderAns();
+  }else if(S.phase==='review'){
+    const bad=S.results.filter(r=>!r.ok).length;
+    v.innerHTML=`${pillsHTML()}
+      <div class="boom bad">😵 ${bad} SOAL SALAH!</div>
+      <div class="card">
+        <p>Skor percobaan ini: <b>${n-bad}/${n}</b>. Pelajari jawaban benar di bawah, lalu ulangi — semua harus benar!</p>
+        ${S.results.map(rvHTML).join('')}
+        <button class="btn orange big" data-act="again">🔄 ULANGI ${n} SOAL (ACAK)</button>
+      </div>`;
+  }else if(S.phase==='perfect'){
+    const last=S.bi===S.batches.length-1;
+    v.innerHTML=`${pillsHTML()}
+      <div class="boom good">🎉 SEMPURNA! ${n}/${n} BENAR!</div>
+      <div class="card">
+        <p>Batch ${S.bi+1} dari ${S.batches.length} tuntas${S.attempt>1?` setelah ${S.attempt} percobaan`:' di percobaan pertama'}. 💪</p>
+        <button class="btn green big" data-act="nb">${last?'🏁 LIHAT HASIL':`LANJUT BATCH ${S.bi+2} ➜`}</button>
+      </div>`;
+  }else{
+    const fo=Array.from(S.first.values()).filter(Boolean).length,fw=S.total-fo,sc=Math.round(fo/S.total*100);
+    const msg=sc>=90?'LUAR BIASA! 🏆':sc>=75?'KEREN! 😎':sc>=60?'BAGUS, TERUS BELAJAR! 💪':'JANGAN MENYERAH! 🔥';
+    v.innerHTML=`<div class="boom">🏁 SELESAI! ${esc(S.mapel)}</div>
+      <div class="card">
+        <div class="grid">
+          <div class="stat score">NILAI<b>${sc}</b>${msg}</div>
+          <div class="stat"><b>⏱ ${fmt(S.tEnd-S.t0)}</b>Waktu pengerjaan</div>
+          <div class="stat"><b>${S.total}</b>Jumlah soal</div>
+          <div class="stat good"><b>✅ ${fo}</b>Benar (percobaan 1)</div>
+          <div class="stat bad"><b>❌ ${fw}</b>Salah (percobaan 1)</div>
+          <div class="stat"><b>${S.tc} / ${S.tw}</b>Benar / salah (semua percobaan)</div>
+          <div class="stat"><b>🔄 ${S.retries}</b>Pengulangan batch</div>
+        </div>
+        <h3 style="margin-top:16px">📊 Rincian Batch</h3>
+        <div class="tbl"><div><span>Batch</span><span>Percobaan</span><span>Waktu</span></div>${S.log.map(l=>`<div><span>#${l.no}</span><span>${l.att}x</span><span>${fmt(l.ms)}</span></div>`).join('')}</div>
+        <div class="row"><button class="btn green" data-act="replay">🔁 Main Lagi</button><button class="btn blue" data-act="menu">📚 Mapel Lain</button></div>
+      </div>`;
+  }
+  updTime();
+}
+
+/* ---------- jodohkan interaction ---------- */
+function jdClick(side,idx){
+  const P=cur(),sel=P.sel;
+  if(!sel)P.sel={s:side,i:idx};
+  else if(sel.s===side)P.sel=(sel.i===idx)?null:{s:side,i:idx};
+  else{
+    const li=side==='l'?idx:sel.i,d=side==='l'?sel.i:idx;
+    Object.keys(P.ans).forEach(k=>{if(P.ans[k]===d)delete P.ans[k];});
+    P.ans[li]=d;P.sel=null;
+  }
+  renderAns();
+}
+
+/* ---------- hafalan: pemotong teks ---------- */
+/*SPLIT-START*/
+const SZ={s:{n:'Pendek',w:8},m:{n:'Sedang',w:20},l:{n:'Panjang',w:40}};
+const wc=s=>(String(s).match(/\S+/g)||[]).length;
+function isEnd(t){
+  if(/[!?…؟]["”’')\]]*$/.test(t))return true;
+  if(!/\.["”’')\]]*$/.test(t))return false;
+  const b=t.replace(/["”’')\]]+$/,'');
+  return !(/^\(?\d+\.$/.test(b)||/^[A-Za-z]{1,3}\.$/.test(b));
+}
+function sents(line){
+  const out=[];let cur=[];
+  line.split(/\s+/).forEach(t=>{cur.push(t);if(isEnd(t)){out.push(cur.join(' '));cur=[];}});
+  if(cur.length)out.push(cur.join(' '));
+  return out;
+}
+function chop(s,W){
+  const tk=s.split(/\s+/),out=[];let cur=[];
+  tk.forEach((t,i)=>{
+    cur.push(t);
+    const rest=tk.length-i-1;
+    const soft=/[,;:]["”’')\]]*$/.test(t)&&cur.length>=W*0.6;
+    if((cur.length>=W*1.3||soft)&&rest>=3){out.push(cur.join(' '));cur=[];}
+  });
+  if(cur.length)out.push(cur.join(' '));
+  return out;
+}
+function splitParts(text,size){
+  const W=(SZ[size]||SZ.m).w,parts=[];
+  String(text).replace(/\r/g,'').split(/\n[ \t]*\n/).forEach(block=>{
+    const units=[];
+    block.split('\n').map(l=>l.trim()).filter(Boolean).forEach(l=>{
+      let first=true;
+      const push=t=>{units.push({t,nl:first});first=false;};
+      if(wc(l)<=W*1.25)push(l);
+      else sents(l).forEach(s=>(wc(s)<=W*1.5?[s]:chop(s,W)).forEach(push));
+    });
+    const ch=[];let cur=null;
+    units.forEach(u=>{
+      const w=wc(u.t);
+      if(cur&&cur.n+w>W){ch.push(cur);cur=null;}
+      if(cur){cur.s+=(u.nl?'\n':' ')+u.t;cur.n+=w;}
+      else cur={s:u.t,n:w,nl:u.nl};
+    });
+    if(cur)ch.push(cur);
+    if(ch.length>1){
+      const l=ch[ch.length-1],p=ch[ch.length-2];
+      if(l.n<W*0.35&&p.n+l.n<=W*1.5){p.s+=(l.nl?'\n':' ')+l.s;p.n+=l.n;ch.pop();}
+    }
+    ch.forEach(c=>parts.push(c.s));
+  });
+  return parts;
+}
+/*SPLIT-END*/
+
+/* ---------- hafalan: data ---------- */
+const HKEY='bmfs_hafalan_v1';
+let HD=[],HF=null,H=null,hTimer=null;
+function loadH(){
+  try{
+    const r=localStorage.getItem(HKEY),a=r?JSON.parse(r):[];
+    HD=(Array.isArray(a)?a:[]).filter(h=>h&&typeof h.id==='string'&&typeof h.title==='string'&&typeof h.text==='string')
+      .map(h=>({id:h.id,title:h.title,text:h.text,size:SZ[h.size]?h.size:'m',done:Array.isArray(h.done)?h.done.map(Boolean):[],mastered:!!h.mastered,t:+h.t||0}));
+  }catch(e){HD=[];}
+}
+function saveH(){
+  try{localStorage.setItem(HKEY,JSON.stringify(HD));}
+  catch(e){toast('⚠️ Hafalan belum tersimpan: penyimpanan browser tidak tersedia.');}
+}
+const hCur=()=>H?HD.find(x=>x.id===H.id)||null:null;
+function hMeta(h){
+  const n=splitParts(h.text,h.size).length,dn=h.done.slice(0,n).filter(Boolean).length;
+  return {n,dn,pct:n?Math.round(dn/n*100):0};
+}
+
+/* ---------- hafalan: tampilan ---------- */
+function hItemHTML(h){
+  const m=hMeta(h),id=esc(h.id);
+  return `<div class="hf ${h.mastered?'done':''}">
+    <button class="hf-open" data-act="hf-start" data-id="${id}">
+      <span class="mi"><span class="mn">${h.mastered?'✅ ':''}${esc(h.title)}</span>
+        <span class="tags"><span class="tg">${m.n} bagian</span><span class="tg alt">${h.mastered?'Hafal semua':`✔ ${m.dn}/${m.n} hafal`}</span></span>
+        <span class="hf-bar"><i style="width:${h.mastered?100:m.pct}%"></i></span></span>
+      <span class="go">▶ MULAI</span>
+    </button>
+    <div class="hf-side">
+      <button class="btn mini ${h.mastered?'green':'white'}" data-act="hf-mas" data-id="${id}">${h.mastered?'✔ Sudah hafal':'☐ Tandai hafal'}</button>
+      <button class="btn mini yellow" data-act="hf-edit" data-id="${id}" aria-label="Edit hafalan" title="Edit">✏️</button>
+      <button class="btn mini red" data-act="hf-del" data-id="${id}" aria-label="Hapus hafalan" title="Hapus">🗑️</button>
+    </div>
+  </div>`;
+}
+function listHTML(){
+  const todo=HD.filter(h=>!h.mastered),ok=HD.filter(h=>h.mastered);
+  return `<div class="card hf-top">
+      <div class="hf-headrow">
+        <div><h2>🧠 Ayo Hafalan</h2><p style="margin:0">Pilih hafalan, tunggu hitung mundur 3 detik, lalu hafalkan bagian demi bagian!</p></div>
+        <button class="btn green plus" data-act="hf-new" aria-label="Tambah hafalan baru">+</button>
+      </div>
+      <div class="stats3"><div class="stat"><b>${HD.length}</b>Hafalan</div><div class="stat"><b>${todo.length}</b>Sedang</div><div class="stat good"><b>${ok.length}</b>Hafal ✅</div></div>
+    </div>`
+    +(HD.length?'':`<div class="card empty"><h3>📭 Belum ada hafalan</h3><p>Tekan tombol <b>+</b> di pojok atas untuk menambah hafalan.</p></div>`)
+    +(todo.length?`<h3 class="hf-sec">📖 Sedang Dihafal (${todo.length})</h3>`+todo.map(hItemHTML).join(''):'')
+    +(ok.length?`<h3 class="hf-sec ok">✅ Hafal (${ok.length})</h3>`+ok.map(hItemHTML).join(''):'');
+}
+function formHTML(){
+  const edit=!!HF.id;
+  return `<div class="card">
+    <h2>${edit?'✏️ Edit Hafalan':'➕ Hafalan Baru'}</h2>
+    <label class="fl" for="hfTitle">Judul hafalan</label>
+    <input class="inp" id="hfTitle" maxlength="80" autocomplete="off" placeholder="Contoh: Teks Pancasila" value="${esc(HF.title)}">
+    <label class="fl" for="hfText">Isi hafalan</label>
+    <textarea id="hfText" spellcheck="false" placeholder="Ketik atau tempel teks hafalan lengkap di sini...&#10;Baris baru &amp; paragraf akan dipertahankan saat dipotong.">${esc(HF.text)}</textarea>
+    <span class="fl">Ukuran potongan</span>
+    <div class="seg">${['s','m','l'].map(k=>`<button type="button" class="${HF.size===k?'on':''}" data-act="hf-size" data-v="${k}">${SZ[k].n}<small>±${SZ[k].w} kata</small></button>`).join('')}</div>
+    <div class="hint" id="hfInfo"></div>
+    ${edit?'<div class="hint">⚠️ Kalau teks atau ukuran potongan diubah, tanda hafal direset.</div>':''}
+    <div class="row"><button class="btn green" data-act="hf-save">💾 Simpan</button><button class="btn white" data-act="hf-formcancel">Batal</button></div>
+  </div>`;
+}
+function hfInfo(){
+  const el=$('#hfInfo');if(!el||!HF)return;
+  const n=splitParts(HF.text,HF.size).length;
+  el.textContent=n?`✂️ Akan dipotong menjadi ${n} bagian.`:'✂️ Tempel teksnya dulu — nanti dipotong otomatis jadi beberapa bagian.';
+}
+function countHTML(){
+  const h=hCur();
+  return `<div class="boom">⏳ BERSIAP HAFALAN!</div>
+    <div class="card hf-center"><h3>${esc(h.title)}</h3><div class="hf-num">${H.n}</div>
+      <p>Teks akan <b>tertutup</b> dulu. Ucapkan dari ingatanmu, lalu tekan FLIP untuk mengecek.</p>
+      <button class="btn white" data-act="hf-cancel">✕ Batal</button></div>`;
+}
+function learnHTML(){
+  const h=hCur(),n=H.order.length,ri=H.order[H.pos],txt=H.parts[ri],mk=!!h.done[ri];
+  const hd=H.parts.filter((_,i)=>h.done[i]).length,last=H.pos===n-1;
+  const an=H.anim?' flipin':'';H.anim=false;
+  return `<div class="pills"><span class="pill">🧠 ${esc(h.title)}</span><span class="pill">✅ ${hd}/${H.parts.length} hafal</span>${H.mode==='todo'?'<span class="pill">🎯 Yang belum hafal</span>':''}</div>
+    <div class="prog"><div class="bar" style="width:${(H.pos+1)/n*100}%"></div></div>
+    <div class="card">
+      <button class="btn big ${mk?'green':'white'} hf-mark" data-act="hf-mark">${mk?'✅ BAGIAN INI SUDAH HAFAL':'☐ TANDAI SUDAH HAFAL'}</button>
+      <div class="qnum"><span>Bagian ${H.pos+1}/${n}${H.mode==='todo'?` (no. ${ri+1})`:''}</span><span class="tg">${H.open?'👀 Terbuka':'🙈 Tertutup'}</span></div>
+      ${H.open?`<div class="qtext hf-text${an}">${esc(txt)}</div>`:`<div class="hf-cover${an}"><b>🙈 TERTUTUP</b><span>Ucapkan dulu dari ingatanmu (± ${wc(txt)} kata), lalu tekan FLIP untuk mengecek.</span></div>`}
+      <button class="btn blue big" data-act="hf-flip">🔄 FLIP · ${H.open?'TUTUP':'BUKA'}</button>
+      <div class="hf-nav">
+        <button class="btn white" data-act="hf-prev" ${H.pos===0?'disabled':''}>⬅ Sebelumnya</button>
+        <button class="btn ${last?'green':'yellow'}" data-act="hf-next">${last?'SELESAI ✔':'Selanjutnya ➡'}</button>
+      </div>
+    </div>
+    <div class="row"><button class="btn mini white" data-act="hf-quit">🚪 Keluar</button></div>`;
+}
+function endHTML(){
+  const h=hCur(),N=H.parts.length;
+  const miss=H.parts.map((_,i)=>h.done[i]?0:i+1).filter(Boolean),left=miss.length,hd=N-left,all=!left;
+  const ms=miss.length>12?miss.slice(0,12).join(', ')+'…':miss.join(', ');
+  const msg=h.mastered?'Luar biasa! Hafalan ini sudah masuk daftar Hafal ✅':all?'Semua bagian sudah hafal. Ceklis supaya hafalan pindah ke daftar Hafal.':'Masih ada bagian yang belum hafal. Ulangi yang belum hafal sampai tuntas!';
+  return `<div class="boom ${h.mastered||all?'good':''}">${h.mastered?'🏆 HAFAL SEMUA!':'🏁 SESI SELESAI!'}</div>
+    <div class="card">
+      <h3>${esc(h.title)}</h3>
+      <div class="grid">
+        <div class="stat"><b>${N}</b>Bagian</div>
+        <div class="stat good"><b>✅ ${hd}</b>Sudah hafal</div>
+        ${left?`<div class="stat bad" style="grid-column:1/-1"><b>⏳ ${left}</b>Belum hafal (bagian ${ms})</div>`:''}
+      </div>
+      <p>${msg}</p>
+      <div class="row">
+        ${all&&!h.mastered?'<button class="btn green" data-act="hf-ceklis">✔ Ceklis Sudah Hafal</button>':''}
+        ${left?'<button class="btn orange" data-act="hf-todo">🎯 Ulangi yang belum hafal</button>':''}
+        <button class="btn blue" data-act="hf-again">🔁 Ulangi dari awal</button>
+        <button class="btn white" data-act="hf-back">📚 Daftar Hafalan</button>
+      </div>
+    </div>`;
+}
+function renderHafal(){
+  const v=$('#v-hafal');if(!v)return;
+  if(H&&!hCur())H=null;
+  if(HF)v.innerHTML=formHTML();
+  else if(H)v.innerHTML=H.phase==='count'?countHTML():H.phase==='learn'?learnHTML():endHTML();
+  else v.innerHTML=listHTML();
+  if(HF)hfInfo();
+}
+
+/* ---------- hafalan: aksi ---------- */
+function hfStopTimer(){if(hTimer){clearInterval(hTimer);hTimer=null;}}
+function hfTick(){
+  if(!H||H.phase!=='count'){hfStopTimer();return;}
+  H.n--;
+  if(H.n<=0){hfStopTimer();H.phase='learn';H.pos=0;H.open=false;H.anim=true;}
+  renderHafal();
+}
+function hfStart(id,mode){
+  const h=HD.find(x=>x.id===id);if(!h)return;
+  const parts=splitParts(h.text,h.size);
+  if(!parts.length){toast('Isi hafalan ini kosong');return;}
+  h.done=parts.map((_,i)=>!!h.done[i]);
+  let order=parts.map((_,i)=>i);
+  if(mode==='todo'){const t=order.filter(i=>!h.done[i]);if(t.length)order=t;else mode='all';}
+  hfStopTimer();
+  H={id,parts,order,pos:0,open:false,anim:false,phase:'count',n:3,mode:mode||'all'};
+  renderHafal();window.scrollTo(0,0);
+  hTimer=setInterval(hfTick,1000);
+}
+function hfForm(id){
+  const h=id?HD.find(x=>x.id===id):null;
+  HF={id:h?h.id:null,title:h?h.title:'',text:h?h.text:'',size:h?h.size:'m'};
+  renderHafal();window.scrollTo(0,0);
+  if(!h){const t=$('#hfTitle');if(t)t.focus();}
+}
+function hfSave(){
+  const title=HF.title.trim(),text=HF.text.replace(/\r/g,'').trim();
+  if(!title){toast('Judul hafalan belum diisi ya!');const t=$('#hfTitle');if(t)t.focus();return;}
+  if(!splitParts(text,HF.size).length){toast('Isi hafalan masih kosong!');const t=$('#hfText');if(t)t.focus();return;}
+  if(HF.id){
+    const h=HD.find(x=>x.id===HF.id);
+    if(h){
+      const changed=h.text!==text||h.size!==HF.size;
+      h.title=title;h.text=text;h.size=HF.size;
+      if(changed){h.done=[];h.mastered=false;}
+    }
+  }else HD.unshift({id:uid(),title,text,size:HF.size,done:[],mastered:false,t:Date.now()});
+  saveH();HF=null;renderHafal();window.scrollTo(0,0);toast('💾 Hafalan tersimpan!');
+}
+async function hfAskMastered(h){
+  const ok=await ask('🎉 Hafal semua!',`Semua bagian "${h.title}" sudah kamu tandai hafal. Ceklis hafalan ini sebagai SUDAH HAFAL? Hafalan akan pindah ke daftar Hafal.`,'✔ Ceklis!');
+  if(ok){h.mastered=true;saveH();toast('✅ Masuk daftar Hafal!');}
+  if(H&&H.phase==='end'&&H.id===h.id)renderHafal();
+}
+function hfFinish(){
+  const h=hCur();if(!h)return;
+  H.phase='end';renderHafal();window.scrollTo(0,0);
+  if(!h.mastered&&H.parts.every((_,i)=>h.done[i]))hfAskMastered(h);
+}
+function hfAct(act,a){
+  const id=a.dataset.id;
+  switch(act){
+    case 'hf-new':hfForm(null);break;
+    case 'hf-edit':hfForm(id);break;
+    case 'hf-size':HF.size=a.dataset.v;$$('.seg button').forEach(b=>b.classList.toggle('on',b===a));hfInfo();break;
+    case 'hf-save':hfSave();break;
+    case 'hf-formcancel':HF=null;renderHafal();window.scrollTo(0,0);break;
+    case 'hf-del':{
+      const h=HD.find(x=>x.id===id);if(!h)break;
+      ask('Hapus hafalan?',`"${h.title}" akan dihapus. Tidak bisa dibatalkan.`,'Hapus').then(ok=>{
+        if(ok){HD=HD.filter(x=>x.id!==id);saveH();renderHafal();toast('🗑️ Hafalan dihapus');}
+      });
+      break;
+    }
+    case 'hf-mas':{
+      const h=HD.find(x=>x.id===id);if(!h)break;
+      if(h.mastered){h.mastered=false;h.done=[];toast('↩️ Dipindah ke Sedang Dihafal');}
+      else{const n=splitParts(h.text,h.size).length;h.done=Array.from({length:n},()=>true);h.mastered=true;toast('✅ Masuk daftar Hafal!');}
+      saveH();renderHafal();
+      break;
+    }
+    case 'hf-start':hfStart(id,'all');break;
+    case 'hf-again':if(H)hfStart(H.id,'all');break;
+    case 'hf-todo':if(H)hfStart(H.id,'todo');break;
+    case 'hf-cancel':case 'hf-back':hfStopTimer();H=null;renderHafal();window.scrollTo(0,0);break;
+    case 'hf-flip':if(H){H.open=!H.open;H.anim=true;renderHafal();}break;
+    case 'hf-prev':if(H&&H.pos>0){H.pos--;H.open=false;H.anim=true;renderHafal();window.scrollTo(0,0);}break;
+    case 'hf-next':
+      if(!H)break;
+      if(H.pos<H.order.length-1){H.pos++;H.open=false;H.anim=true;renderHafal();window.scrollTo(0,0);}
+      else hfFinish();
+      break;
+    case 'hf-mark':{
+      const h=hCur();if(!h)break;
+      const ri=H.order[H.pos];
+      h.done[ri]=!h.done[ri];
+      if(!h.done[ri]&&h.mastered)h.mastered=false;
+      saveH();renderHafal();
+      break;
+    }
+    case 'hf-ceklis':{
+      const h=hCur();if(!h)break;
+      h.mastered=true;saveH();renderHafal();toast('✅ Masuk daftar Hafal!');
+      break;
+    }
+    case 'hf-quit':
+      ask('Keluar dari sesi hafalan?','Tanda hafal yang sudah kamu centang tetap tersimpan.','Keluar').then(ok=>{
+        if(ok){hfStopTimer();H=null;renderHafal();window.scrollTo(0,0);}
+      });
+      break;
+  }
+}
+document.addEventListener('input',e=>{
+  const id=e.target&&e.target.id;
+  if(!HF||(id!=='hfTitle'&&id!=='hfText'))return;
+  if(id==='hfTitle')HF.title=e.target.value;else HF.text=e.target.value;
+  hfInfo();
+});
+
+/* ---------- navigation & events ---------- */
+let curView='import';
+function go(v){
+  curView=v;
+  $$('.view').forEach(e=>e.classList.toggle('on',e.id==='v-'+v));
+  $$('.tab').forEach(e=>e.classList.toggle('on',e.dataset.go===v));
+  if(v==='data')renderData();
+  if(v==='play')renderPlay();
+  if(v==='hafal')renderHafal();
+  updTime();
+  window.scrollTo(0,0);
+}
+document.addEventListener('click',e=>{
+  const g=e.target.closest('[data-go]');
+  if(g){go(g.dataset.go);return;}
+  const a=e.target.closest('[data-act]');if(!a)return;
+  const act=a.dataset.act,i=+a.dataset.i,d=+a.dataset.d;
+  if(act.startsWith('hf-')){hfAct(act,a);return;}
+  switch(act){
+    case 'selm':{const x=mapelList()[i];if(!x)break;selM.has(x.name)?selM.delete(x.name):selM.add(x.name);renderData();break;}
+    case 'expm':{const x=mapelList()[i];if(!x)break;openM.has(x.name)?openM.delete(x.name):openM.add(x.name);renderData();break;}
+    case 'delq':DB=DB.filter(q=>q.id!==a.dataset.id);save();renderData();toast('🗑️ Soal dihapus');break;
+    case 'start':{const x=mapelList()[i];if(x)startSession(x.name);break;}
+    case 'opt':cur().ans=d;renderAns();break;
+    case 'optm':{const P=cur();P.ans.has(d)?P.ans.delete(d):P.ans.add(d);renderAns();break;}
+    case 'jl':jdClick('l',i);break;
+    case 'jr':jdClick('r',d);break;
+    case 'unp':delete cur().ans[i];renderAns();break;
+    case 'next':nextQ();break;
+    case 'again':again();break;
+    case 'nb':nextBatch();break;
+    case 'replay':{const m=S.mapel;stopTick();S=null;startSession(m);if(!S){renderPlay();}break;}
+    case 'menu':S=null;stopTick();renderPlay();break;
+    case 'quit':ask('Keluar dari latihan?','Progres sesi ini akan hilang.','Keluar').then(ok=>{if(ok){S=null;stopTick();renderPlay();}});break;
+  }
+});
+
+function bind(){
+  $('#btnImport').onclick=()=>doImport($('#impText').value);
+  $('#btnExample').onclick=()=>{
+    $('#impText').value=[
+      'MTK, pilgan[4+7|11|13|12|15|14], [6×4|24|26|28|30|25]',
+      'MTK, jodohkan[A=5+5, B=3+2, C=6+7|1=10*,2=5*,3=13]',
+      'MTK, pilganmax["angka ganjil adalah.."|∆3|∆9|∆11|6|2], ["angka puluhan adalah.."|∆22|∆25|9|102|5]',
+      'IPA, pilgan[Planet terdekat dari Matahari adalah..|Merkurius|Venus|Bumi|Mars|Jupiter], [Gas yang dibutuhkan manusia untuk bernapas adalah..|Oksigen|Helium|Neon|Argon|Hidrogen]'
+    ].join('\n');
+  };
+  $('#btnClearImp').onclick=()=>{$('#impText').value='';$('#impLog').innerHTML='';};
+  $('#impFile').onchange=ev=>{
+    const f=ev.target.files&&ev.target.files[0];if(!f)return;
+    const rd=new FileReader();
+    rd.onload=()=>{$('#impText').value=String(rd.result);doImport(String(rd.result));};
+    rd.onerror=()=>toast('Gagal membaca file');
+    rd.readAsText(f);ev.target.value='';
+  };
+  $('#btnAdd').onclick=()=>{go('import');$('#impText').focus();};
+  $('#btnSelAll').onclick=()=>{
+    const l=mapelList();
+    if(l.length&&selM.size===l.length)selM.clear();else l.forEach(x=>selM.add(x.name));
+    renderData();
+  };
+  $('#btnDel').onclick=async()=>{
+    if(!selM.size)return;
+    const n=DB.filter(q=>selM.has(q.mapel)).length;
+    if(await ask('Hapus data?',`Hapus ${selM.size} mapel (${n} soal)? Tidak bisa dibatalkan.`,'Hapus')){
+      DB=DB.filter(q=>!selM.has(q.mapel));selM.clear();save();renderData();toast('🗑️ Terhapus!');
+    }
+  };
+  $('#btnExportFile').onclick=()=>{
+    const t=exportText(exportTargets());if(!t){toast('Belum ada data');return;}
+    const dt=new Date(),p=n=>String(n).padStart(2,'0');
+    download(`BMFS-soal-${dt.getFullYear()}${p(dt.getMonth()+1)}${p(dt.getDate())}.txt`,t);
+    toast('💾 File disimpan!');
+  };
+  $('#btnCopy').onclick=async()=>{
+    const t=exportText(exportTargets());if(!t){toast('Belum ada data');return;}
+    try{await navigator.clipboard.writeText(t);toast('📋 Tersalin!');}
+    catch(e){const x=$('#expText');x.select();try{document.execCommand('copy');toast('📋 Tersalin!');}catch(_){toast('Salin manual dari kotak ya');}}
+  };
+  window.addEventListener('resize',drawLines);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(drawLines);
+}
+
+window.BMFS={splitParts,parseText,exportText,addItems,isCorrect,prepare,startSession,nextQ,finishAttempt,again,nextBatch,getS:()=>S,getDB:()=>DB,setDB:v=>{DB=v;}};
+
+load();loadH();bind();go(DB.length?'play':(HD.length?'hafal':'import'));
+})();
+</script>
+</body>
+</html>
